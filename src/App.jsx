@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import TabBar from './components/TabBar.jsx'
 import Toast from './components/Toast.jsx'
 import { formatMl, strings } from './lib/i18n.js'
+import Calendar from './screens/Calendar.jsx'
 import Home from './screens/Home.jsx'
 import Settings from './screens/Settings.jsx'
 import { useWater } from './state/useWater.js'
@@ -25,7 +26,7 @@ export default function App() {
         onRemove={water.removeDrink}
         />
       )}
-      {tab === 'calendar' && <h1 className="title">{t.calendar}</h1>}
+      {tab === 'calendar' && <Calendar state={water.state} />}
       {tab === 'settings' && <Settings settings={settings} onChange={water.updateSettings} />}
       {last && (
         <Toast
