@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { strings } from '../lib/i18n.js'
 import { totalFor } from '../lib/progress.js'
 import { scheduleReminders } from './notifications.js'
@@ -13,6 +13,14 @@ export function lastDrink(days) {
 }
 
 export function useReminders(state) {
+  const [wake, setWake] = useState(0)
+
+  useEffect(() => {
+    const onVisible = () => document.visibilityState === 'visible' && setWake((count) => count + 1)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [])
+
   useEffect(() => {
     if (!state) return undefined
     const timer = setTimeout(() => {
@@ -27,5 +35,5 @@ export function useReminders(state) {
       scheduleReminders(times, strings(settings.language)).catch(() => {})
     }, 800)
     return () => clearTimeout(timer)
-  }, [state])
+  }, [state, wake])
 }
