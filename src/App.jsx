@@ -8,12 +8,14 @@ import Home from './screens/Home.jsx'
 import Settings from './screens/Settings.jsx'
 import { isNative } from './lib/platform.js'
 import { requestPermission } from './reminders/notifications.js'
+import { useReminders } from './reminders/useReminders.js'
 import { useWater } from './state/useWater.js'
 
 export default function App() {
   const water = useWater()
   const [last, setLast] = useState(null)
   const [tab, setTab] = useState('today')
+  useReminders(water.state)
   const clearLast = useCallback(() => setLast(null), [])
   if (!water.state) return null
   const { settings } = water.state
