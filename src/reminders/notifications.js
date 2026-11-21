@@ -14,6 +14,8 @@ export async function requestPermission() {
 }
 
 const CHANNEL = 'reminders'
+const ACTION_TYPE = 'drink'
+export const DRINK_ACTION = 'drink-250'
 const MAX_PENDING = 60
 let channelReady = false
 
@@ -26,7 +28,18 @@ async function ensureChannel(t) {
     visibility: 1,
     vibration: true,
   })
+  await LocalNotifications.registerActionTypes({
+    types: [{ id: ACTION_TYPE, actions: [{ id: DRINK_ACTION, title: t.notificationActions.drink }] }],
+  })
   channelReady = true
+}
+
+export function onDrinkAction(handler) {
+  if (!isNative) return () => {}
+  const listener = LocalNotifications.addListener('localNotificationActionPerformed', ({ actionId }) => {
+    if (actionId === DRINK_ACTION) handler(250)
+  })
+  return () => listener.then((handle) => handle.remove())
 }
 
 export async function scheduleReminders(times, t) {
@@ -41,6 +54,7 @@ export async function scheduleReminders(times, t) {
       title: t.notificationTitle,
       body: t.reminderBodies[index % t.reminderBodies.length],
       channelId: CHANNEL,
+      actionTypeId: ACTION_TYPE,
       schedule: { at, allowWhileIdle: true },
     })),
   })
