@@ -1,10 +1,13 @@
 import { useCallback, useState } from 'react'
+import PermissionSheet from './components/PermissionSheet.jsx'
 import TabBar from './components/TabBar.jsx'
 import Toast from './components/Toast.jsx'
 import { formatMl, strings } from './lib/i18n.js'
 import Calendar from './screens/Calendar.jsx'
 import Home from './screens/Home.jsx'
 import Settings from './screens/Settings.jsx'
+import { isNative } from './lib/platform.js'
+import { requestPermission } from './reminders/notifications.js'
 import { useWater } from './state/useWater.js'
 
 export default function App() {
@@ -39,6 +42,16 @@ export default function App() {
             setLast(null)
           }}
           onDone={clearLast}
+        />
+      )}
+      {isNative && !settings.askedPermission && (
+        <PermissionSheet
+          t={t}
+          onAllow={async () => {
+            const result = await requestPermission()
+            water.updateSettings({ askedPermission: true, reminders: result === 'granted' })
+          }}
+          onLater={() => water.updateSettings({ askedPermission: true })}
         />
       )}
       <TabBar

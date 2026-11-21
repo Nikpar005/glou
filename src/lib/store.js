@@ -8,6 +8,7 @@ export const DEFAULT_SETTINGS = {
   reminders: true,
   language: 'el',
   customSize: 330,
+  askedPermission: false,
 }
 
 export function emptyState() {
