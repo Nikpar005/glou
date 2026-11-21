@@ -1,0 +1,11 @@
+{
+  "appId": "com.nikpar.glou",
+  "appName": "Glou",
+  "webDir": "dist",
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_glou",
+      "iconColor": "#0E7C9B"
+    }
+  }
+}
