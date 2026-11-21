@@ -1,10 +1,13 @@
+import { useState } from 'react'
+import CustomAmount from '../components/CustomAmount.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import QuickAdd from '../components/QuickAdd.jsx'
 import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
 import { fraction, totalFor } from '../lib/progress.js'
 
-export default function Home({ state, onAdd }) {
+export default function Home({ state, onAdd, onCustomSize }) {
+  const [custom, setCustom] = useState(false)
   const { settings, days } = state
   const t = strings(settings.language)
   const today = dayKey()
@@ -24,8 +27,21 @@ export default function Home({ state, onAdd }) {
         labels={[formatMl(250, settings.language), formatMl(500, settings.language)]}
         onAdd={onAdd}
         customLabel={t.custom}
-        onCustom={() => onAdd(settings.customSize)}
+        onCustom={() => setCustom(true)}
       />
+      {custom && (
+        <CustomAmount
+          open
+          initial={settings.customSize}
+          t={t}
+          onClose={() => setCustom(false)}
+          onAdd={(ml) => {
+            setCustom(false)
+            onCustomSize(ml)
+            onAdd(ml)
+          }}
+        />
+      )}
     </section>
   )
 }

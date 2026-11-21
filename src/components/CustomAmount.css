@@ -1,0 +1,49 @@
+.amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 20px;
+}
+
+.amount-value {
+  font-size: 2.4rem;
+  font-weight: 900;
+}
+
+.amount-step {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--water-light);
+  color: var(--sea);
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.amount-slider {
+  width: 100%;
+  accent-color: var(--sea);
+  margin-bottom: 24px;
+}
+
+.sheet-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.button-primary,
+.button-secondary {
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 800;
+}
+
+.button-primary {
+  background: var(--sea);
+  color: #fff;
+}
+
+.button-secondary {
+  background: var(--mist);
+}

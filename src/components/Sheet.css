@@ -1,0 +1,38 @@
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(18, 50, 74, 0.35);
+  animation: sheet-fade 0.2s ease;
+}
+
+.sheet {
+  width: min(480px, 100%);
+  padding: 12px 20px calc(24px + var(--safe-bottom));
+  border-radius: 28px 28px 0 0;
+  background: var(--paper);
+  animation: sheet-up 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sheet-handle {
+  width: 44px;
+  height: 5px;
+  margin: 0 auto 16px;
+  border-radius: 3px;
+  background: var(--water-light);
+}
+
+@keyframes sheet-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
