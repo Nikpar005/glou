@@ -66,8 +66,7 @@ export default function Calendar({ state }) {
           ))}
           {keys.map((key) => {
             const future = key > today
-            const logged = totalFor(days, key) > 0
-            const status = future || key < first ? 'future' : goalMet(days, key, settings.goal) ? 'met' : logged || key < today ? 'missed' : 'open'
+            const status = future || key < first ? 'future' : goalMet(days, key, settings.goal) ? 'met' : key < today ? 'missed' : 'open'
             return (
               <button
                 key={key}
