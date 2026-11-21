@@ -3,6 +3,7 @@ import Sheet from './Sheet.jsx'
 import './CustomAmount.css'
 
 const STEP = 50
+const SLIDER_STEP = 10
 const MIN = 50
 const MAX = 2000
 
@@ -21,7 +22,7 @@ export default function CustomAmount({ open, initial, onClose, onAdd, t }) {
         type="range"
         min={MIN}
         max={MAX}
-        step={STEP}
+        step={SLIDER_STEP}
         value={ml}
         onChange={(event) => setMl(Number(event.target.value))}
         aria-label={t.custom}
