@@ -10,7 +10,7 @@ import { mood } from '../lib/mood.js'
 import { fraction, totalFor } from '../lib/progress.js'
 import './Home.css'
 
-export default function Home({ state, onAdd, onCustomSize, onRemove }) {
+export default function Home({ state, onAdd, onCustomSize, onRemove, lastAdded }) {
   const [custom, setCustom] = useState(false)
   const { settings, days } = state
   const t = strings(settings.language)
@@ -22,7 +22,7 @@ export default function Home({ state, onAdd, onCustomSize, onRemove }) {
     <section>
       <div className="home-header">
         <h1 className="title">{t.today}</h1>
-        <Glou mood={face} size={64} />
+        <Glou key={lastAdded || 'idle'} mood={face} size={64} splash={Boolean(lastAdded)} />
       </div>
       <p className="bubble">{t.moods[face]}</p>
       <ProgressRing

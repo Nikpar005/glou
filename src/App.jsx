@@ -24,6 +24,7 @@ export default function App() {
       {tab === 'today' && (
         <Home state={water.state} onAdd={add} onCustomSize={(ml) => water.updateSettings({ customSize: ml })}
         onRemove={water.removeDrink}
+          lastAdded={last?.drink.at}
         />
       )}
       {tab === 'calendar' && <Calendar state={water.state} />}

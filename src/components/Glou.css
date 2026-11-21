@@ -1,4 +1,72 @@
 .glou {
   display: block;
   overflow: visible;
+  transform-origin: 50% 100%;
+  animation: glou-bob 3s ease-in-out infinite;
+}
+
+.glou-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glou-blink 5s infinite;
+}
+
+.glou-proud {
+  animation: glou-hop 1.2s ease-in-out infinite;
+}
+
+.glou-splash {
+  animation: glou-splash 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes glou-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.02, 0.98);
+  }
+}
+
+@keyframes glou-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+  70% {
+    transform: translateY(0) scale(1.06, 0.94);
+  }
+}
+
+@keyframes glou-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes glou-splash {
+  30% {
+    transform: scale(1.18, 0.86);
+  }
+  60% {
+    transform: scale(0.94, 1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glou,
+  .glou-eyes,
+  .glou-proud,
+  .glou-splash {
+    animation: none;
+  }
 }

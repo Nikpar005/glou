@@ -32,9 +32,9 @@ function Eyes({ mood }) {
   )
 }
 
-export default function Glou({ mood = 'happy', size = 120 }) {
+export default function Glou({ mood = 'happy', size = 120, splash = false }) {
   return (
-    <svg className={`glou glou-${mood}`} viewBox="0 0 120 130" width={size} height={size * (130 / 120)} role="img" aria-label="Glou">
+    <svg className={`glou glou-${mood}${splash ? ' glou-splash' : ''}`} viewBox="0 0 120 130" width={size} height={size * (130 / 120)} role="img" aria-label="Glou">
       <defs>
         <linearGradient id="glou-body" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0" stopColor="#8fd7f4" />
