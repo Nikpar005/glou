@@ -3,6 +3,7 @@ import TabBar from './components/TabBar.jsx'
 import Toast from './components/Toast.jsx'
 import { formatMl, strings } from './lib/i18n.js'
 import Home from './screens/Home.jsx'
+import Settings from './screens/Settings.jsx'
 import { useWater } from './state/useWater.js'
 
 export default function App() {
@@ -24,7 +25,7 @@ export default function App() {
         />
       )}
       {tab === 'calendar' && <h1 className="title">{t.calendar}</h1>}
-      {tab === 'settings' && <h1 className="title">{t.settings}</h1>}
+      {tab === 'settings' && <Settings settings={settings} onChange={water.updateSettings} />}
       {last && (
         <Toast
           key={last.drink.at}
