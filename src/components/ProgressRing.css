@@ -1,0 +1,59 @@
+.ring {
+  position: relative;
+  width: min(72vw, 260px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.ring-water {
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ring-wave {
+  animation: ring-wave 3.5s linear infinite;
+}
+
+.ring-progress {
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ring-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.ring-label strong {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ring-label span {
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.ring-label small {
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--sea);
+}
+
+@keyframes ring-wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-120px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-wave {
+    animation: none;
+  }
+}

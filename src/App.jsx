@@ -1,7 +1,12 @@
+import Home from './screens/Home.jsx'
+import { useWater } from './state/useWater.js'
+
 export default function App() {
+  const water = useWater()
+  if (!water.state) return null
   return (
     <main className="app">
-      <h1 className="title">Glou</h1>
+      <Home state={water.state} />
     </main>
   )
 }
