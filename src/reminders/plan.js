@@ -1,4 +1,4 @@
-import { parseTime } from '../lib/dates.js'
+import { dayKey, parseTime } from '../lib/dates.js'
 
 const DAY = 24 * 60
 
@@ -17,12 +17,17 @@ export function wakingSlots(day, settings) {
   return slots
 }
 
-export function planReminders({ now, settings, days = 2 }) {
+export function planReminders({ now, settings, goal = Infinity, totalFor = () => 0, lastDrinkAt = null, days = 2 }) {
   if (!settings.reminders || settings.interval <= 0) return []
+  const quietUntil = lastDrinkAt ? new Date(lastDrinkAt.getTime() + settings.interval * 60000) : null
   const plan = []
   for (let offset = -1; offset < days; offset += 1) {
-    for (const slot of wakingSlots(at(now, offset, 0), settings)) {
-      if (slot > now) plan.push(slot)
+    const day = at(now, offset, 0)
+    if (totalFor(dayKey(day)) >= goal) continue
+    for (const slot of wakingSlots(day, settings)) {
+      if (slot <= now) continue
+      if (quietUntil && slot < quietUntil) continue
+      plan.push(slot)
     }
   }
   return plan.sort((a, b) => a - b)

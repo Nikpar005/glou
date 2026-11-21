@@ -29,3 +29,21 @@ describe('reminder plan', () => {
     expect(planReminders({ now: new Date(2026, 10, 21, 12), settings: { ...settings, reminders: false } })).toEqual([])
   })
 })
+
+describe('reminder rules', () => {
+  const now = new Date(2026, 10, 21, 12, 5)
+
+  it('stays quiet for one interval after a drink', () => {
+    const plan = planReminders({ now, settings, lastDrinkAt: new Date(2026, 10, 21, 12, 0) })
+    expect(time(plan[0])).toBe('21 12:30')
+    const later = planReminders({ now, settings, lastDrinkAt: new Date(2026, 10, 21, 12, 4) })
+    expect(time(later[0])).toBe('21 13:00')
+  })
+
+  it('stops for the day once the goal is reached and starts again tomorrow', () => {
+    const totals = { '2026-11-21': 4000 }
+    const plan = planReminders({ now, settings, goal: 4000, totalFor: (key) => totals[key] || 0 })
+    expect(time(plan[0])).toBe('22 09:00')
+    expect(plan.every((slot) => slot.getDate() === 22)).toBe(true)
+  })
+})
