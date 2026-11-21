@@ -95,3 +95,21 @@
   padding: 10px 0;
   border-top: 1px solid var(--mist);
 }
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.summary-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  font-size: 0.95rem;
+}
+
+.summary-flame {
+  font-size: 1.4rem;
+}

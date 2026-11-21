@@ -3,7 +3,7 @@ import Sheet from '../components/Sheet.jsx'
 import { formatTime } from '../lib/dates.js'
 import { dayKey, monthDays, parseDayKey, weekdayIndex } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
-import { goalMet, totalFor } from '../lib/progress.js'
+import { goalMet, streak, totalFor } from '../lib/progress.js'
 import './Calendar.css'
 
 function locale(language) {
@@ -32,6 +32,23 @@ export default function Calendar({ state }) {
   return (
     <section>
       <h1 className="title">{t.calendar}</h1>
+      {(() => {
+        const days_ = streak(days, today, settings.goal)
+        const past = keys.filter((key) => key <= today && key >= first)
+        const met = past.filter((key) => goalMet(days, key, settings.goal)).length
+        return (
+          <div className="summary">
+            <div className="card summary-card">
+              <span className="summary-flame" aria-hidden="true">🔥</span>
+              <strong>{days_ ? t.streak(days_) : t.noStreak}</strong>
+            </div>
+            <div className="card summary-card">
+              <span className="summary-flame" aria-hidden="true">💧</span>
+              <strong>{t.goalMetDays(met, past.length)}</strong>
+            </div>
+          </div>
+        )
+      })()}
       <div className="card calendar">
         <header className="calendar-header">
           <button onClick={() => move(-1)} aria-label="‹">‹</button>
