@@ -1,4 +1,4 @@
-import { formatMl, strings } from '../lib/i18n.js'
+import { formatMl, LANGUAGES, strings } from '../lib/i18n.js'
 import './Settings.css'
 
 const GOALS = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000]
@@ -50,6 +50,24 @@ export default function Settings({ settings, onChange }) {
             ))}
           </select>
         </label>
+      </div>
+      <div className="card settings">
+        <div className="setting">
+          <span>{t.language}</span>
+          <div className="segmented" role="radiogroup" aria-label={t.language}>
+            {LANGUAGES.map((language) => (
+              <button
+                key={language.code}
+                role="radio"
+                aria-checked={settings.language === language.code}
+                className={settings.language === language.code ? 'segment segment-on' : 'segment'}
+                onClick={() => onChange({ language: language.code })}
+              >
+                {language.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

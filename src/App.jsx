@@ -14,6 +14,7 @@ export default function App() {
   if (!water.state) return null
   const { settings } = water.state
   const t = strings(settings.language)
+  document.documentElement.lang = settings.language
 
   const add = (ml) => setLast(water.addDrink(ml))
 
