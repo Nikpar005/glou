@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import CustomAmount from '../components/CustomAmount.jsx'
+import Glou from '../components/Glou.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import QuickAdd from '../components/QuickAdd.jsx'
 import TodayLog from '../components/TodayLog.jsx'
 import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
 import { fraction, totalFor } from '../lib/progress.js'
+import './Home.css'
 
 export default function Home({ state, onAdd, onCustomSize, onRemove }) {
   const [custom, setCustom] = useState(false)
@@ -16,7 +18,10 @@ export default function Home({ state, onAdd, onCustomSize, onRemove }) {
   const left = Math.max(settings.goal - total, 0)
   return (
     <section>
-      <h1 className="title">{t.today}</h1>
+      <div className="home-header">
+        <h1 className="title">{t.today}</h1>
+        <Glou mood="happy" size={64} />
+      </div>
       <ProgressRing
         fraction={fraction(total, settings.goal)}
         total={formatMl(total, settings.language)}
