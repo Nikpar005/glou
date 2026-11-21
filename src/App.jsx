@@ -6,7 +6,7 @@ export default function App() {
   if (!water.state) return null
   return (
     <main className="app">
-      <Home state={water.state} />
+      <Home state={water.state} onAdd={(ml) => water.addDrink(ml)} />
     </main>
   )
 }
