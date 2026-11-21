@@ -1,4 +1,7 @@
 import { formatMl, LANGUAGES, strings } from '../lib/i18n.js'
+import { useEffect, useState } from 'react'
+import { isNative } from '../lib/platform.js'
+import { permissionState } from '../reminders/notifications.js'
 import './Settings.css'
 
 const GOALS = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000]
@@ -6,6 +9,10 @@ const INTERVALS = [30, 45, 60, 90, 120]
 
 export default function Settings({ settings, onChange }) {
   const t = strings(settings.language)
+  const [permission, setPermission] = useState('unavailable')
+  useEffect(() => {
+    permissionState().then(setPermission).catch(() => setPermission('unavailable'))
+  }, [settings.reminders])
   return (
     <section>
       <h1 className="title">{t.settings}</h1>
@@ -51,6 +58,13 @@ export default function Settings({ settings, onChange }) {
           </select>
         </label>
       </div>
+      {isNative && settings.reminders && permission === 'denied' && <p className="card notice">{t.remindersOff}</p>}
+      {isNative && settings.reminders && (
+        <details className="card help">
+          <summary>{t.batteryTitle}</summary>
+          <p>{t.batteryText}</p>
+        </details>
+      )}
       <div className="card settings">
         <div className="setting">
           <span>{t.language}</span>
