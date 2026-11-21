@@ -2,11 +2,12 @@ import { useState } from 'react'
 import CustomAmount from '../components/CustomAmount.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import QuickAdd from '../components/QuickAdd.jsx'
+import TodayLog from '../components/TodayLog.jsx'
 import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
 import { fraction, totalFor } from '../lib/progress.js'
 
-export default function Home({ state, onAdd, onCustomSize }) {
+export default function Home({ state, onAdd, onCustomSize, onRemove }) {
   const [custom, setCustom] = useState(false)
   const { settings, days } = state
   const t = strings(settings.language)
@@ -29,6 +30,7 @@ export default function Home({ state, onAdd, onCustomSize }) {
         customLabel={t.custom}
         onCustom={() => setCustom(true)}
       />
+      <TodayLog drinks={days[today] || []} language={settings.language} t={t} onRemove={(at) => onRemove(today, at)} />
       {custom && (
         <CustomAmount
           open

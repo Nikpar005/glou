@@ -16,7 +16,9 @@ export default function App() {
 
   return (
     <main className="app">
-      <Home state={water.state} onAdd={add} onCustomSize={(ml) => water.updateSettings({ customSize: ml })} />
+      <Home state={water.state} onAdd={add} onCustomSize={(ml) => water.updateSettings({ customSize: ml })}
+        onRemove={water.removeDrink}
+      />
       {last && (
         <Toast
           key={last.drink.at}
