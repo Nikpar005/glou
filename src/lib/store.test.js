@@ -41,3 +41,19 @@ describe('store', () => {
     expect(state.days).toEqual({})
   })
 })
+
+describe('preferences backend', () => {
+  it('reads and writes through the Preferences plugin', async () => {
+    const { preferencesBackend } = await import('./store.js')
+    const values = {}
+    const backend = preferencesBackend({
+      get: async ({ key }) => ({ value: values[key] ?? null }),
+      set: async ({ key, value }) => {
+        values[key] = value
+      },
+    })
+    await backend.set('a', '1')
+    expect(await backend.get('a')).toBe('1')
+    expect(await backend.get('b')).toBeNull()
+  })
+})

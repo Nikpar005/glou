@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { dayKey } from '../lib/dates.js'
-import { createStore, localBackend } from '../lib/store.js'
-
-const defaultStore = createStore(localBackend)
+import { store as defaultStore } from '../lib/platform.js'
 
 export function useWater(store = defaultStore) {
   const [state, setState] = useState(null)

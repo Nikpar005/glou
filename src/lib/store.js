@@ -64,3 +64,15 @@ export const localBackend = {
     }
   },
 }
+
+export function preferencesBackend(preferences) {
+  return {
+    async get(key) {
+      const { value } = await preferences.get({ key })
+      return value
+    },
+    async set(key, value) {
+      await preferences.set({ key, value })
+    },
+  }
+}
