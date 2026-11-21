@@ -6,6 +6,7 @@ import QuickAdd from '../components/QuickAdd.jsx'
 import TodayLog from '../components/TodayLog.jsx'
 import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
+import { mood } from '../lib/mood.js'
 import { fraction, totalFor } from '../lib/progress.js'
 import './Home.css'
 
@@ -16,12 +17,14 @@ export default function Home({ state, onAdd, onCustomSize, onRemove }) {
   const today = dayKey()
   const total = totalFor(days, today)
   const left = Math.max(settings.goal - total, 0)
+  const face = mood({ total, goal: settings.goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd })
   return (
     <section>
       <div className="home-header">
         <h1 className="title">{t.today}</h1>
-        <Glou mood="happy" size={64} />
+        <Glou mood={face} size={64} />
       </div>
+      <p className="bubble">{t.moods[face]}</p>
       <ProgressRing
         fraction={fraction(total, settings.goal)}
         total={formatMl(total, settings.language)}

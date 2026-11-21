@@ -3,3 +3,14 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.bubble {
+  position: relative;
+  margin: -4px 0 20px auto;
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 16px 4px 16px 16px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  font-weight: 700;
+}
