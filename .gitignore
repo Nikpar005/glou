@@ -1,1 +1,24 @@
 node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Local secrets and machine settings
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+keystore.properties
+android/local.properties
+
+# Android build output
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/captures/
+*.apk
+*.aab
+.idea/
