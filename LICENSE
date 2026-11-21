@@ -1,0 +1,9 @@
+Copyright (c) 2026 Nikos Parliaros. All rights reserved.
+
+This repository is published so the project can be viewed. No permission is
+granted to copy, modify, distribute or publish the app, its code or its
+artwork, in whole or in part, without the prior written permission of the
+copyright holder.
+
+Third-party packages keep their own licences, listed in package.json and
+package-lock.json.
