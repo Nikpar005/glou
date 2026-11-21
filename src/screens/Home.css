@@ -14,3 +14,16 @@
   box-shadow: var(--shadow);
   font-weight: 700;
 }
+
+.tip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  background: #fff8e4;
+}
+
+.tip p {
+  margin: 0;
+  font-weight: 700;
+}

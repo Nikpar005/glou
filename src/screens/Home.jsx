@@ -8,6 +8,7 @@ import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
 import { mood } from '../lib/mood.js'
 import { fraction, totalFor } from '../lib/progress.js'
+import { tipIndex } from '../lib/tips.js'
 import './Home.css'
 
 export default function Home({ state, onAdd, onCustomSize, onRemove, lastAdded }) {
@@ -38,6 +39,10 @@ export default function Home({ state, onAdd, onCustomSize, onRemove, lastAdded }
         customLabel={t.custom}
         onCustom={() => setCustom(true)}
       />
+      <aside className="card tip">
+        <Glou mood="happy" size={36} />
+        <p>{t.tips[tipIndex(today, t.tips.length)]}</p>
+      </aside>
       <TodayLog drinks={days[today] || []} language={settings.language} t={t} onRemove={(at) => onRemove(today, at)} />
       {custom && (
         <CustomAmount
