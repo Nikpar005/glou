@@ -374,7 +374,7 @@ function Held({ parts, at }) {
 
 const CAPES = { hero: '#d6455c', crown: '#6b3fa0', halloween: '#2a2140' }
 
-export default function Glou({ mood = 'happy', size = 120, splash = false, outfit = 'casual' }) {
+export default function Glou({ mood = 'happy', size = 120, splash = false, outfit = 'casual', dance = null }) {
   const id = useId().replace(/:/g, '')
   const parts = OUTFITS[outfit]?.parts || []
   const holding = parts.some((part) => HELD.has(part))
@@ -384,7 +384,7 @@ export default function Glou({ mood = 'happy', size = 120, splash = false, outfi
   const cape = parts.includes('cape') ? CAPES[outfit] || CAPES.hero : null
   return (
     <svg
-      className={`glou glou-${mood}${splash ? ' glou-splash' : ''}`}
+      className={`glou glou-${mood}${splash ? ' glou-splash' : ''}${dance ? ` glou-dance-${dance}` : ''}`}
       viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.width} ${VIEW.height}`}
       width={size}
       height={(size * VIEW.height) / VIEW.width}

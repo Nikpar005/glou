@@ -70,3 +70,113 @@
     animation: none;
   }
 }
+
+.glou-dance-wiggle {
+  animation: dance-wiggle 1s ease-in-out;
+}
+
+.glou-dance-jump {
+  animation: dance-jump 1s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+.glou-dance-spin {
+  animation: dance-spin 1s ease-in-out;
+}
+
+.glou-dance-shake {
+  animation: dance-shake 1s ease-in-out;
+}
+
+@keyframes dance-wiggle {
+  20% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes dance-jump {
+  20% {
+    transform: scale(1.1, 0.88);
+  }
+  45% {
+    transform: translateY(-26px) scale(0.94, 1.08);
+  }
+  65% {
+    transform: translateY(0) scale(1.08, 0.92);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes dance-spin {
+  25% {
+    transform: scaleX(-1) translateY(-6px);
+  }
+  50% {
+    transform: scaleX(1) translateY(-10px);
+  }
+  75% {
+    transform: scaleX(-1) translateY(-6px);
+  }
+}
+
+@keyframes dance-shake {
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateX(-6px) rotate(-3deg) scaleY(0.96);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(6px) rotate(3deg) scaleY(1.04);
+  }
+}
+
+.companion {
+  display: block;
+  overflow: visible;
+}
+
+.companion-float {
+  animation: companion-float 3.2s ease-in-out infinite;
+}
+
+.companion-walk {
+  transform-origin: 50% 90%;
+  animation: companion-walk 2.4s ease-in-out infinite;
+}
+
+@keyframes companion-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes companion-walk {
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-float,
+  .companion-walk,
+  [class*='glou-dance-'] {
+    animation: none;
+  }
+}
