@@ -37,11 +37,14 @@ export default function Home({ state, goal, outfit, look, weather, repair, onAdd
         splashKey={lastAdded}
         label={t.wardrobeTitle}
         onOpen={onOpenWardrobe}
-        line={glouLine(
-          settings.language,
-          { total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd, weather, streak: streak(days, today, settings.goal, state.wardrobe.repairs) },
-          { left: formatMl(left, settings.language), total: formatMl(total, settings.language), goal: formatMl(goal, settings.language) },
-        )}
+        lineFor={(turn) =>
+          glouLine(
+            settings.language,
+            { total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd, weather, streak: streak(days, today, settings.goal, state.wardrobe.repairs) },
+            { left: formatMl(left, settings.language), total: formatMl(total, settings.language), goal: formatMl(goal, settings.language) },
+            turn,
+          )
+        }
       />
       {repair}
       <ProgressRing

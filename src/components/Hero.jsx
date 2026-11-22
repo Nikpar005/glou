@@ -1,15 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Companion from './Companion.jsx'
 import Glou from './Glou.jsx'
 import Scene from './Scene.jsx'
 import './Hero.css'
 
-export default function Hero({ scene, outfit, mood, companion, dance, line, splashKey, label, onOpen }) {
+const TURN_SECONDS = 25
+
+export default function Hero({ scene, outfit, mood, companion, dance, lineFor, splashKey, label, onOpen }) {
   const [dancing, setDancing] = useState(0)
+  const [turn, setTurn] = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => setTurn((value) => value + 1), TURN_SECONDS * 1000)
+    return () => clearInterval(timer)
+  }, [])
+  const line = lineFor(turn)
   return (
     <section className={`hero hero-${scene}`} aria-label={label}>
       <Scene id={scene} className="hero-scene" />
-      <p className="hero-bubble">{line}</p>
+      <button key={line} className="hero-bubble" onClick={() => setTurn((value) => value + 1)}>
+        {line}
+      </button>
       <div className="hero-ground">
         <button className="hero-glou" onClick={() => setDancing((count) => count + 1)} aria-label={label}>
           <Glou key={`${splashKey}-${dancing}`} mood={mood} outfit={outfit} size={112} splash={Boolean(splashKey) && !dancing} dance={dancing ? dance : null} />
