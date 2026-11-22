@@ -1,0 +1,73 @@
+.ad {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 16px;
+  padding: calc(18px + var(--safe-top)) 22px calc(24px + var(--safe-bottom));
+  background: radial-gradient(120% 80% at 50% 20%, #1d4f73 0%, #0b2236 70%);
+  color: #fff;
+  animation: ad-in 0.3s ease-out;
+}
+
+.ad-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ad-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ad-count {
+  margin-left: auto;
+  margin-right: 12px;
+  opacity: 0.75;
+}
+
+.ad-close {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-weight: 700;
+}
+
+.ad-body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.ad-body p {
+  max-width: 260px;
+  margin: 0;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.ad-bar {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #7fd3f5 calc(var(--done) * 100%), rgba(255, 255, 255, 0.15) 0);
+  transition: background 0.9s linear;
+}
+
+.ad-reward:disabled {
+  opacity: 0.4;
+}
+
+@keyframes ad-in {
+  from {
+    opacity: 0;
+  }
+}
