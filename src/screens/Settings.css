@@ -77,6 +77,7 @@
   border-radius: 10px;
   font-weight: 800;
   color: var(--ink-soft);
+  white-space: nowrap;
 }
 
 .segment-on {
@@ -105,4 +106,40 @@
   margin: 10px 0 0;
   color: var(--ink-soft);
   font-weight: 600;
+}
+
+.goal-value {
+  color: var(--sea);
+  font-size: 1.15rem;
+}
+
+.setting-note {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.setting-warning {
+  color: #b8344a;
+}
+
+.link-button {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--mist);
+  color: var(--sea);
+  font-weight: 800;
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+}
+
+.disclaimer-footer {
+  margin: 8px 4px 0;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  line-height: 1.45;
 }
