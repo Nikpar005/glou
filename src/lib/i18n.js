@@ -36,6 +36,7 @@ const STRINGS = {
     remindersOff: 'Οι υπενθυμίσεις είναι κλειστές. Μπορείς να τις ανοίξεις από τις Ρυθμίσεις του κινητού.',
     notificationTitle: 'Ώρα για νερό',
     notificationActions: { drink: 'Ήπια 250 ml' },
+    notificationLogged: { title: 'Καταγράφηκε +250 ml', body: '{total} από {goal}', done: 'Έπιασες τον στόχο σου!' },
     reminderBodies: [
       'Μια γουλιά τώρα, και είσαι πιο κοντά στον στόχο.',
       'Το Γλου διψάει. Εσύ;',
@@ -93,6 +94,7 @@ const STRINGS = {
     remindersOff: 'Reminders are off. You can turn them on in your phone\'s settings.',
     notificationTitle: 'Time for water',
     notificationActions: { drink: 'Drank 250 ml' },
+    notificationLogged: { title: 'Logged +250 ml', body: '{total} of {goal}', done: 'You reached your goal!' },
     reminderBodies: [
       'One sip now and you\'re closer to your goal.',
       'Glou is thirsty. Are you?',
