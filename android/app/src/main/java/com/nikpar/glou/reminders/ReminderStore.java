@@ -103,6 +103,33 @@ public final class ReminderStore {
         }
     }
 
+    public static Logged today(Context context, long now) {
+        SharedPreferences state = context.getSharedPreferences(STATE_PREFS, Context.MODE_PRIVATE);
+        try {
+            JSONObject root = new JSONObject(state.getString(STATE_KEY, "{}"));
+            JSONObject settings = root.optJSONObject("settings");
+            if (settings == null) settings = new JSONObject();
+            JSONObject days = root.optJSONObject("days");
+            JSONArray drinks = days == null ? null : days.optJSONArray(dayKey(now));
+            int total = 0;
+            if (drinks != null) for (int index = 0; index < drinks.length(); index++) total += drinks.getJSONObject(index).optInt("ml");
+            return new Logged(total, settings.optInt("goal", 4000), settings.optInt("interval", 30), settings.optString("language", "el"));
+        } catch (JSONException error) {
+            return new Logged(0, 4000, 30, "el");
+        }
+    }
+
+    static String pick(JSONObject texts, String key, int seed, String fallback) {
+        JSONArray options = texts.optJSONArray(key);
+        if (options == null || options.length() == 0) return fallback;
+        int size = options.length();
+        return options.optString(((seed % size) + size) % size, fallback);
+    }
+
+    static int daySeed(long now) {
+        return (int) (now / 86_400_000L) * 7;
+    }
+
     public static synchronized Logged addDrink(Context context, int ml, long now) {
         SharedPreferences state = context.getSharedPreferences(STATE_PREFS, Context.MODE_PRIVATE);
         JSONObject root;

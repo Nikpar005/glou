@@ -27,7 +27,7 @@ public class DrinkReceiver extends BroadcastReceiver {
         ReminderStore.Logged logged = ReminderStore.addDrink(context, ml, now);
         ReminderScheduler.quietAfterDrink(context, logged, now);
         RemindersPlugin.drinkLogged();
-        if (!confirm(context, notification, logged) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return;
+        if (!confirm(context, notification, ml, logged) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return;
         PendingResult pending = goAsync();
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             NotificationManagerCompat.from(context).cancel(notification);
@@ -42,17 +42,23 @@ public class DrinkReceiver extends BroadcastReceiver {
         return format.format(ml / 1000.0) + " L";
     }
 
-    private static boolean confirm(Context context, int id, ReminderStore.Logged logged) {
+    private static boolean confirm(Context context, int id, int ml, ReminderStore.Logged logged) {
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
         JSONObject texts = ReminderStore.texts(context);
         boolean done = logged.total >= logged.goal;
-        String title = done ? texts.optString("doneTitle", "Goal reached") : texts.optString("loggedTitle", "+250 ml");
-        String body = texts.optString("loggedBody", "{total} / {goal}")
-            .replace("{total}", formatMl(logged.total, logged.language))
-            .replace("{goal}", formatMl(logged.goal, logged.language));
+        int seed = ReminderStore.daySeed(System.currentTimeMillis()) + logged.total / 50;
+        String total = formatMl(logged.total, logged.language);
+        String goal = formatMl(logged.goal, logged.language);
+        String title = done
+            ? ReminderStore.pick(texts, "done", seed, "Goal reached")
+            : ReminderStore.pick(texts, "logged", seed, "+{ml}").replace("{ml}", formatMl(ml, logged.language));
+        String body = (done ? texts.optString("doneBody", "{total}") : texts.optString("loggedBody", "{total} / {goal}"))
+            .replace("{total}", total)
+            .replace("{goal}", goal);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ReminderScheduler.CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_glou)
             .setColor(ReminderReceiver.COLOR)
+            .setLargeIcon(ReminderReceiver.face(context, done ? R.drawable.glou_proud : R.drawable.glou_happy))
             .setContentTitle(title)
             .setContentText(body)
             .setProgress(logged.goal, Math.min(logged.total, logged.goal), false)
