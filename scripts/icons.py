@@ -68,6 +68,31 @@ def render(content, path, size):
     tmp.unlink()
 
 
+FACES = {
+    'happy': '<ellipse cx="44.5" cy="70" rx="4.8" ry="6.2" fill="#0b2a42"/><ellipse cx="63.5" cy="70" rx="4.8" ry="6.2" fill="#0b2a42"/>'
+             '<circle cx="46.3" cy="67.6" r="2" fill="#fff"/><circle cx="65.3" cy="67.6" r="2" fill="#fff"/>'
+             '<path d="M48.5 81q5.5 5.4 11 0" stroke="#0b2a42" stroke-width="2.6" fill="none" stroke-linecap="round"/>',
+    'thirsty': '<path d="M38 63.4l8 -2.6M70 63.4l-8 -2.6" stroke="#0b2a42" stroke-width="2.2" stroke-linecap="round"/>'
+               '<ellipse cx="44.5" cy="70" rx="4.4" ry="5.6" fill="#0b2a42"/><ellipse cx="63.5" cy="70" rx="4.4" ry="5.6" fill="#0b2a42"/>'
+               '<circle cx="46" cy="67.8" r="1.8" fill="#fff"/><circle cx="65" cy="67.8" r="1.8" fill="#fff"/>'
+               '<ellipse cx="54" cy="83" rx="3.2" ry="3.8" fill="#0b2a42"/>'
+               '<path d="M80 40c2.6 4 4.6 6.4 4.6 9a4.6 4.6 0 0 1-9.2 0c0-2.6 2-5 4.6-9z" fill="#8fd7f4"/>',
+    'proud': '<path d="M39.5 71q5-6 10 0M58.5 71q5-6 10 0" stroke="#0b2a42" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+             '<path d="M47 78.5q7 12 14 0z" fill="#0b2a42"/><path d="M50.5 83.6q3.5 2.2 7 0q-3.5 2.8-7 0z" fill="#ff8aa0"/>'
+             '<path d="M80 30l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#ffd166"/>',
+}
+
+
+def notification_face(mood):
+    body = ('<radialGradient id="dr" cx="0.36" cy="0.4" r="0.8"><stop offset="0" stop-color="#e6f8ff"/>'
+            '<stop offset="0.65" stop-color="#8fd7f4"/><stop offset="1" stop-color="#3a9fd6"/></radialGradient>'
+            f'<path d="{DROP}" fill="url(#dr)"/>'
+            '<path d="M31 58c2-9 7-17 13-24" stroke="#fff" stroke-width="4.2" stroke-linecap="round" fill="none" opacity="0.9"/>'
+            f'{FACES[mood]}'
+            '<ellipse cx="36" cy="80" rx="4.4" ry="2.6" fill="#ff9fb0" opacity="0.55"/><ellipse cx="72" cy="80" rx="4.4" ry="2.6" fill="#ff9fb0" opacity="0.55"/>')
+    return svg(body, '3 14 102 102')
+
+
 DENSITIES = {'mdpi': 1, 'hdpi': 1.5, 'xhdpi': 2, 'xxhdpi': 3, 'xxxhdpi': 4}
 
 
@@ -84,6 +109,8 @@ def main():
             render(svg(background(v)), folder / f'ic_launcher{suffix}_background.png', int(108 * scale))
         render(full(v, 'rounded'), ROOT / f'public/icons/{name}.png', 192)
     render(full(VARIANTS['classic'], 'rounded'), ROOT / 'public/icon-512.png', 512)
+    for mood in FACES:
+        render(notification_face(mood), RES / 'drawable-nodpi' / f'glou_{mood}.png', 256)
     print('icons written', file=sys.stderr)
 
 
