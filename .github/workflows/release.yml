@@ -2,6 +2,7 @@ name: Release
 
 on:
   push:
+    branches: [release]
     tags: ['v*']
 
 permissions:
@@ -22,6 +23,8 @@ jobs:
           java-version: 21
       - run: npm ci
       - run: npm test
+      - name: Read the version
+        run: echo "VERSION=v$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
       - run: npm run sync
       - name: Restore the signing key
         env:
@@ -39,7 +42,7 @@ jobs:
         run: ./gradlew assembleRelease
       - name: Name the APK
         run: |
-          cp android/app/build/outputs/apk/release/app-release.apk "glou-${GITHUB_REF_NAME}.apk"
+          cp android/app/build/outputs/apk/release/app-release.apk "glou-${VERSION}.apk"
           cp android/app/build/outputs/apk/release/app-release.apk glou.apk
           rm -f "$RUNNER_TEMP/glou-release.jks"
       - uses: actions/upload-artifact@v4
@@ -47,20 +50,23 @@ jobs:
           name: glou-release-apk
           path: |
             glou.apk
-            glou-${{ github.ref_name }}.apk
+            glou-${{ env.VERSION }}.apk
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.VERSION }}
+          target_commitish: ${{ github.sha }}
           files: |
             glou.apk
-            glou-${{ github.ref_name }}.apk
+            glou-${{ env.VERSION }}.apk
           generate_release_notes: true
       - name: Publish on the public download page
         uses: softprops/action-gh-release@v2
         with:
           repository: Nikpar005/glou-app
           token: ${{ secrets.GLOU_APP_TOKEN }}
-          name: Glou ${{ github.ref_name }}
+          tag_name: ${{ env.VERSION }}
+          name: Glou ${{ env.VERSION }}
           body: Κατέβασε το glou.apk από το κινητό σου, άνοιξέ το και πάτα Εγκατάσταση.
           files: |
             glou.apk
-            glou-${{ github.ref_name }}.apk
+            glou-${{ env.VERSION }}.apk
