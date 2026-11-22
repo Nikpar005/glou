@@ -48,6 +48,18 @@ describe('glouLine', () => {
     expect(lines.size).toBeGreaterThan(1)
   })
 
+  it('shows a different line on every turn', () => {
+    const context = { ...base, total: 500, now: at(15) }
+    const seen = [0, 1, 2, 3, 4].map((turn) => glouLine('el', context, { left: '', total: '', goal: '' }, turn))
+    expect(new Set(seen).size).toBe(5)
+  })
+
+  it('never calls the goal a ring', () => {
+    const { el, en } = allLines()
+    for (const line of Object.values(el).flat()) expect(line).not.toMatch(/δαχτυλίδι/)
+    for (const line of Object.values(en).flat()) expect(line).not.toMatch(/\bring\b/)
+  })
+
   it('has the same groups in both languages', () => {
     const { el, en } = allLines()
     expect(Object.keys(en).sort()).toEqual(Object.keys(el).sort())
