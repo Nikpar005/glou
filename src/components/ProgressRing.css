@@ -19,7 +19,7 @@
 
 .ring-label {
   position: absolute;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.95), 0 0 2px #fff;
+  text-shadow: 0 0 6px var(--glow), 0 0 2px var(--glow);
   inset: 0;
   display: grid;
   place-content: center;
@@ -43,7 +43,7 @@
   margin-top: 8px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--pill);
   font-weight: 800;
   color: var(--sea);
   text-shadow: none;

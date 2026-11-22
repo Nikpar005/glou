@@ -41,7 +41,7 @@
 
 .button-primary {
   background: var(--sea);
-  color: #fff;
+  color: var(--paper);
 }
 
 .button-secondary {

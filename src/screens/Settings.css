@@ -88,8 +88,8 @@
 
 .notice {
   margin: 0 0 16px;
-  background: #fde7e3;
-  color: #8a3a2c;
+  background: var(--warn-bg);
+  color: var(--warn);
   font-weight: 700;
 }
 

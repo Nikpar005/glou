@@ -67,7 +67,7 @@
   margin: 18px 0 10px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #e3f4fb, #d3ecf7);
+  background: linear-gradient(135deg, var(--water-light), var(--mist));
   font-weight: 700;
 }
 
