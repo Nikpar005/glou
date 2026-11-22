@@ -37,13 +37,7 @@ export function reminderItems(times, t) {
 }
 
 export function reminderTexts(t) {
-  return {
-    channel: t.reminders,
-    action: t.notificationActions.drink,
-    loggedTitle: t.notificationLogged.title,
-    loggedBody: t.notificationLogged.body,
-    doneTitle: t.notificationLogged.done,
-  }
+  return { channel: t.reminders, ...t.notify }
 }
 
 export function onExternalDrink(handler) {

@@ -23,9 +23,12 @@ describe('reminderTexts', () => {
   it('gives the native side every string it needs in both languages', () => {
     for (const language of ['el', 'en']) {
       const texts = reminderTexts(strings(language))
-      for (const value of Object.values(texts)) expect(value).toBeTruthy()
-      expect(texts.loggedBody).toContain('{total}')
+      for (const value of Object.values(texts)) expect(value.length).toBeGreaterThan(0)
+      for (const group of ['titles', 'low', 'mid', 'almost', 'evening', 'logged', 'done']) expect(Array.isArray(texts[group])).toBe(true)
+      expect(texts.progress).toContain('{left}')
       expect(texts.loggedBody).toContain('{goal}')
+      for (const line of texts.logged) expect(line).toContain('{ml}')
+      expect(texts.doneBody).toContain('{total}')
     }
   })
 })
