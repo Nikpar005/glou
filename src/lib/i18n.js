@@ -102,7 +102,7 @@ const STRINGS = {
       dance: { wiggle: 'Λίκνισμα', jump: 'Άλμα', spin: 'Στροφή', shake: 'Κούνημα' },
       sound: { drop: 'Σταγόνα', mute: 'Χωρίς ήχο', bubble: 'Φούσκες', chime: 'Καμπανάκι', marimba: 'Μαρίμπα' },
       celebration: { bubbles: 'Φούσκες', confetti: 'Κομφετί', fireworks: 'Πυροτεχνήματα', stars: 'Αστέρια' },
-      icon: { classic: 'Κλασικό', night: 'Νύχτα', sunset: 'Ηλιοβασίλεμα', mint: 'Μέντα' },
+      icon: { classic: 'Κλασικό', night: 'Ωκεανός', sunset: 'Ηλιοβασίλεμα', mint: 'Μέντα' },
     },
     kindHints: {
       dance: 'Πάτα τον Glou στην αρχική για να χορέψει.',
@@ -274,7 +274,7 @@ const STRINGS = {
       dance: { wiggle: 'Wiggle', jump: 'Jump', spin: 'Spin', shake: 'Shake' },
       sound: { drop: 'Drop', mute: 'No sound', bubble: 'Bubbles', chime: 'Chime', marimba: 'Marimba' },
       celebration: { bubbles: 'Bubbles', confetti: 'Confetti', fireworks: 'Fireworks', stars: 'Stars' },
-      icon: { classic: 'Classic', night: 'Night', sunset: 'Sunset', mint: 'Mint' },
+      icon: { classic: 'Classic', night: 'Ocean', sunset: 'Sunset', mint: 'Mint' },
     },
     kindHints: {
       dance: 'Tap Glou on the home screen to see the dance.',
