@@ -8,6 +8,12 @@ const ICONS = {
       <path d="M4 10h16M9 3v4M15 3v4" />
     </>
   ),
+  wardrobe: (
+    <>
+      <path d="M12 6a2 2 0 1 1 2 2c-1 0-2 .7-2 1.6V10" />
+      <path d="M12 10l-8.4 6.3A1 1 0 0 0 4.2 18h15.6a1 1 0 0 0 .6-1.7z" />
+    </>
+  ),
   settings: (
     <>
       <circle cx="12" cy="12" r="3" />
