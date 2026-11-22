@@ -6,7 +6,7 @@ A water tracker for Android with a mascot, Glou, and reminders that don't nag. L
   <img src="docs/screenshots/today-el.jpg" alt="Today screen in Greek: a water ring at 1.5 of 2.65 litres, Glou in a beret and scarf, quick-add buttons and a tip" width="200">
   <img src="docs/screenshots/wardrobe.jpg" alt="Glou's wardrobe with the automatic option and outfits to unlock" width="200">
   <img src="docs/screenshots/onboarding.jpg" alt="First launch: weight and activity give a suggested daily goal, with a health note" width="200">
-  <img src="docs/screenshots/settings.jpg" alt="Settings with the automatic goal and reminders" width="200">
+  <img src="docs/screenshots/midnight.jpg" alt="The midnight theme with Glou in space and a galaxy ring" width="200">
 </p>
 
 ## Features
@@ -16,7 +16,8 @@ A water tracker for Android with a mascot, Glou, and reminders that don't nag. L
 - **Calendar:** each day is marked met or missed, with the current streak and the month's tally.
 - **Glou the mascot:** sleepy in the morning, thirsty when the day runs ahead of you, happy on schedule and proud at the goal. Glou also shares one tip each day.
 - **Glou's wardrobe:** a scarf and beanie in the cold, a raincoat and umbrella in the rain, sunglasses in the sun, and outfits for Christmas, New Year, Halloween, Valentine's and the Greek national days. With your location on, the clothes follow today's forecast; without it, they follow the season.
-- **Outfits to unlock:** nine extra outfits (king, chef, wizard, DJ, superhero, spring, pirate, cowboy, gentleman), each unlocked by watching three short ads. The ad screen is a placeholder for now; real ads will use AdMob.
+- **Glou talks like a person:** more than a hundred lines that change with the time of day, how far along you are, the weather, the weekend and your streak.
+- **Extras to unlock with short ads:** outfits, scenes (beach, snowy peak, city at night, space, under the sea, forest), colour themes (including a dark one), what fills the ring (lemonade, matcha, strawberry, galaxy), a friend for Glou, dances, sounds, goal celebrations and alternative app icons. Each takes one to three ads and stays unlocked for good. There's also one random gift a day, a limit of ten ads a day, and once a week an ad can save a streak you broke yesterday. Reminders, history and the goal are never behind an ad. The ad screen is a placeholder for now; real ads will use AdMob.
 - **Reminders that respect you:**
   - only between the hours you wake up and go to bed, every 30 to 120 minutes;
   - quiet for one interval after you drink;
@@ -24,9 +25,9 @@ A water tracker for Android with a mascot, Glou, and reminders that don't nag. L
   - a "Drank 250 ml" button on the notification that logs the glass without opening the app.
 - **Private:** no account and no server. Your drinks are kept in the app's storage on the phone. If you turn on the weather, only a rounded location is sent to MET Norway to get the forecast.
 
-| Calendar | Custom amount |
+| Calendar | Settings |
 |---|---|
-| <img src="docs/screenshots/calendar.jpg" alt="Calendar with the current streak and the days that met the goal" width="240"> | <img src="docs/screenshots/custom-amount.jpg" alt="Bottom sheet to choose a custom amount" width="240"> |
+| <img src="docs/screenshots/calendar.jpg" alt="Calendar with the current streak and the days that met the goal" width="240"> | <img src="docs/screenshots/settings.jpg" alt="Settings with the automatic goal and reminders" width="240"> |
 
 > **Not medical advice.** Glou gives a general estimate. Water needs vary, and people with some health conditions (for example kidney or heart conditions), or who are pregnant or breastfeeding, should follow their doctor's advice.
 
@@ -54,7 +55,7 @@ In Android Studio, pick your phone and press **Run**. Every push to `main` also 
 | Weather | MET Norway Locationforecast |
 | Tests | Vitest |
 
-The reminder plan is a pure function in [`src/reminders/plan.js`](src/reminders/plan.js), so its rules are tested without a phone. The app schedules the plan for the next two days and refreshes it after every drink and every time it comes back to the screen. The notifications themselves come from [`android/.../reminders`](android/app/src/main/java/com/nikpar/glou/reminders): when you tap "Drank 250 ml", a receiver writes the drink straight into the app's storage, quiets the next reminders and shows a short confirmation. Outfit rules live in [`src/lib/outfits.js`](src/lib/outfits.js) and the goal in [`src/lib/hydration.js`](src/lib/hydration.js), both with tests.
+The reminder plan is a pure function in [`src/reminders/plan.js`](src/reminders/plan.js), so its rules are tested without a phone. The app schedules the plan for the next two days and refreshes it after every drink and every time it comes back to the screen. The notifications themselves come from [`android/.../reminders`](android/app/src/main/java/com/nikpar/glou/reminders): when you tap "Drank 250 ml", a receiver writes the drink straight into the app's storage, quiets the next reminders and shows a short confirmation. App icons are generated by [`scripts/icons.py`](scripts/icons.py). Outfit rules live in [`src/lib/outfits.js`](src/lib/outfits.js) and the goal in [`src/lib/hydration.js`](src/lib/hydration.js), both with tests.
 
 ## Licence
 
