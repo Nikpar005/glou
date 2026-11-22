@@ -27,3 +27,16 @@
   margin: 0;
   font-weight: 700;
 }
+
+.home-glou {
+  padding: 0;
+  margin: -6px -6px -10px 0;
+}
+
+.hot-note {
+  margin: -6px 0 14px;
+  text-align: center;
+  color: #c9622b;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
