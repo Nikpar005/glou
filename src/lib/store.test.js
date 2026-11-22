@@ -25,7 +25,7 @@ describe('store', () => {
     )
     const state = await createStore(backend).load()
     expect(state.settings.location).toEqual({ lat: 37.98, lon: 23.73 })
-    expect(state.wardrobe).toEqual({ wearing: 'crown', unlocked: ['crown'], views: { pirate: 2 } })
+    expect(state.wardrobe).toEqual({ ...DEFAULT_WARDROBE, wearing: 'crown', unlocked: ['crown'], views: { pirate: 2 } })
   })
 
   it('ignores a location without coordinates', async () => {

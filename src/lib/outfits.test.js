@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ADS_TO_UNLOCK, autoOutfit, isUnlocked, recordAd, REWARD_OUTFITS, seasonOutfit, specialOutfit, weatherOutfit, wornOutfit } from './outfits.js'
+import { autoOutfit, REWARD_OUTFITS, seasonOutfit, specialOutfit, weatherOutfit, wornOutfit } from './outfits.js'
 
 const wardrobe = { wearing: 'auto', unlocked: [], views: {} }
 const day = (month, date) => new Date(2026, month - 1, date, 12)
@@ -43,24 +43,6 @@ describe('weather', () => {
 })
 
 describe('rewards', () => {
-  it('unlocks an outfit after enough ads and puts it on', () => {
-    let state = wardrobe
-    for (let count = 1; count < ADS_TO_UNLOCK; count += 1) {
-      state = recordAd(state, 'crown')
-      expect(isUnlocked(state, 'crown')).toBe(false)
-    }
-    state = recordAd(state, 'crown')
-    expect(isUnlocked(state, 'crown')).toBe(true)
-    expect(state.wearing).toBe('crown')
-    expect(state.views.crown).toBeUndefined()
-  })
-
-  it('ignores ads for free or already unlocked outfits', () => {
-    expect(recordAd(wardrobe, 'winter')).toBe(wardrobe)
-    const owned = { ...wardrobe, unlocked: ['chef'] }
-    expect(recordAd(owned, 'chef')).toBe(owned)
-  })
-
   it('wears a chosen outfit only when it is unlocked', () => {
     const date = day(6, 10)
     expect(wornOutfit({ wardrobe: { ...wardrobe, wearing: 'pirate' }, date, weather: null })).toBe('sunny')

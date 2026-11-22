@@ -1,5 +1,3 @@
-export const ADS_TO_UNLOCK = 3
-
 export const OUTFITS = {
   casual: { parts: [], kind: 'weather' },
   winter: { parts: ['sweater', 'scarf', 'beanie'], kind: 'weather' },
@@ -66,17 +64,4 @@ export function wornOutfit({ wardrobe, date, weather }) {
 
 export function isUnlocked(wardrobe, id) {
   return OUTFITS[id]?.kind !== 'reward' || wardrobe.unlocked.includes(id)
-}
-
-export function adsWatched(wardrobe, id) {
-  return wardrobe.views[id] || 0
-}
-
-export function recordAd(wardrobe, id) {
-  if (!REWARD_OUTFITS.includes(id) || isUnlocked(wardrobe, id)) return wardrobe
-  const views = adsWatched(wardrobe, id) + 1
-  if (views < ADS_TO_UNLOCK) return { ...wardrobe, views: { ...wardrobe.views, [id]: views } }
-  const rest = { ...wardrobe.views }
-  delete rest[id]
-  return { ...wardrobe, views: rest, unlocked: [...wardrobe.unlocked, id], wearing: id }
 }

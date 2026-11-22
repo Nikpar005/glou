@@ -15,7 +15,7 @@ export const DEFAULT_SETTINGS = {
   askedProfile: false,
 }
 
-export const DEFAULT_WARDROBE = { wearing: 'auto', unlocked: [], views: {} }
+export const DEFAULT_WARDROBE = { wearing: 'auto', unlocked: [], views: {}, selected: {}, ads: null, giftDay: null, repairs: [] }
 
 export function emptyState() {
   return { settings: { ...DEFAULT_SETTINGS, location: null }, days: {}, wardrobe: { ...DEFAULT_WARDROBE } }
@@ -38,6 +38,12 @@ export function normalize(raw) {
     if (wardrobe.views && typeof wardrobe.views === 'object') {
       state.wardrobe.views = Object.fromEntries(Object.entries(wardrobe.views).filter(([, count]) => Number.isInteger(count) && count > 0))
     }
+    if (wardrobe.selected && typeof wardrobe.selected === 'object') {
+      state.wardrobe.selected = Object.fromEntries(Object.entries(wardrobe.selected).filter(([, id]) => typeof id === 'string'))
+    }
+    if (wardrobe.ads && typeof wardrobe.ads.day === 'string' && Number.isInteger(wardrobe.ads.count)) state.wardrobe.ads = { day: wardrobe.ads.day, count: wardrobe.ads.count }
+    if (typeof wardrobe.giftDay === 'string') state.wardrobe.giftDay = wardrobe.giftDay
+    if (Array.isArray(wardrobe.repairs)) state.wardrobe.repairs = wardrobe.repairs.filter((key) => /^\d{4}-\d{2}-\d{2}$/.test(key))
   }
   if (raw.days && typeof raw.days === 'object') {
     for (const [key, drinks] of Object.entries(raw.days)) {
