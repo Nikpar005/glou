@@ -7,7 +7,7 @@ import Calendar from './screens/Calendar.jsx'
 import Home from './screens/Home.jsx'
 import Settings from './screens/Settings.jsx'
 import { isNative } from './lib/platform.js'
-import { onDrinkAction, requestPermission } from './reminders/notifications.js'
+import { onExternalDrink, requestPermission } from './reminders/notifications.js'
 import { useReminders } from './reminders/useReminders.js'
 import { useWater } from './state/useWater.js'
 
@@ -16,9 +16,13 @@ export default function App() {
   const [last, setLast] = useState(null)
   const [tab, setTab] = useState('today')
   useReminders(water.state)
-  const { addDrink } = water
-  const ready = Boolean(water.state)
-  useEffect(() => (ready ? onDrinkAction((ml) => setLast(addDrink(ml))) : undefined), [ready, addDrink])
+  const { reload } = water
+  useEffect(() => onExternalDrink(reload), [reload])
+  useEffect(() => {
+    const onVisible = () => document.visibilityState === 'visible' && reload()
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [reload])
   const clearLast = useCallback(() => setLast(null), [])
   if (!water.state) return null
   const { settings } = water.state

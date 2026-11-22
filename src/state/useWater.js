@@ -6,7 +6,7 @@ export function useWater(store = defaultStore) {
   const [state, setState] = useState(null)
   const loaded = useRef(false)
 
-  useEffect(() => {
+  const reload = useCallback(() => {
     let cancelled = false
     store.load().then((value) => {
       if (!cancelled) {
@@ -18,6 +18,8 @@ export function useWater(store = defaultStore) {
       cancelled = true
     }
   }, [store])
+
+  useEffect(reload, [reload])
 
   useEffect(() => {
     if (loaded.current && state) store.save(state)
@@ -44,5 +46,5 @@ export function useWater(store = defaultStore) {
     setState((current) => ({ ...current, settings: { ...current.settings, ...changes } }))
   }, [])
 
-  return { state, addDrink, removeDrink, updateSettings }
+  return { state, addDrink, removeDrink, updateSettings, reload }
 }
