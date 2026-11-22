@@ -6,56 +6,63 @@ ROOT = Path(__file__).resolve().parent.parent
 RES = ROOT / 'android/app/src/main/res'
 OUT = ROOT / 'resources/icons'
 
+DROP = 'M54 16C69.5 36.5 90 52.5 90 76.5a36 36 0 0 1-72 0C18 52.5 38.5 36.5 54 16z'
+
 VARIANTS = {
-    'classic': {'bg': ('#0b3a5c', '#1592c0'), 'drop': ('#ffffff', '#bfeefd'), 'ink': '#0b3a5c', 'cheek': '#f6a5b0', 'sparkle': '#9fe3ff'},
-    'night': {'bg': ('#0b1030', '#3a2a7a'), 'drop': ('#e8f7ff', '#8fd7f4'), 'ink': '#0b1030', 'cheek': '#f6a5b0', 'sparkle': '#ffe08a'},
-    'sunset': {'bg': ('#f6b26b', '#d0503a'), 'drop': ('#ffffff', '#ffe3cc'), 'ink': '#6a2a1c', 'cheek': '#f07c8a', 'sparkle': '#fff3c4'},
-    'mint': {'bg': ('#d9f6e6', '#58c294'), 'drop': ('#ffffff', '#c8f1ff'), 'ink': '#14543e', 'cheek': '#f6a5b0', 'sparkle': '#ffffff'},
+    'classic': {'bg': ('#070b26', '#2b2468'), 'drop': ('#e6f8ff', '#8fd7f4', '#3a9fd6'), 'ink': '#0b1030', 'stars': '#ffe7a3', 'wink': True},
+    'night': {'bg': ('#06192b', '#0f4c75'), 'drop': ('#c9f1ff', '#5cc6ef', '#1d86c4'), 'ink': '#0b2a42', 'stars': None, 'wink': False},
+    'sunset': {'bg': ('#7a2140', '#f08a5d'), 'drop': ('#fff5ec', '#ffd2b8', '#f29a7a'), 'ink': '#4a1726', 'stars': '#fff3c4', 'wink': True},
+    'mint': {'bg': ('#0c3b33', '#2f9e7f'), 'drop': ('#f0fffa', '#a8f0d6', '#4cc3a0'), 'ink': '#0c3b33', 'stars': None, 'wink': False},
 }
 
-DROP = 'M54 26C61.5 37.3 71.8 47.6 71.8 59.8a17.8 17.8 0 0 1-35.6 0C36.2 47.6 46.5 37.3 54 26z'
+
+def stars(color):
+    if not color:
+        return ''
+    return (f'<g fill="{color}"><path d="M80 26l1.1 2.7 2.7 1.1-2.7 1.1-1.1 2.7-1.1-2.7-2.7-1.1 2.7-1.1z"/>'
+            '<circle cx="27" cy="29" r="0.9"/><circle cx="86" cy="42" r="0.7"/></g>')
 
 
 def background(v):
     a, b = v['bg']
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient>
-<radialGradient id="l" cx="0.3" cy="0.2" r="0.8"><stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
-<rect width="108" height="108" fill="url(#g)"/><rect width="108" height="108" fill="url(#l)"/>
-</svg>'''
+    return (f'<radialGradient id="bg" cx="0.5" cy="0.3" r="0.8"><stop offset="0" stop-color="{b}"/><stop offset="1" stop-color="{a}"/></radialGradient>'
+            f'<rect x="0" y="0" width="108" height="108" fill="url(#bg)"/>{stars(v["stars"])}')
 
 
 def foreground(v):
-    top, bottom = v['drop']
+    a, b, edge = v['drop']
     ink = v['ink']
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">
-<defs><linearGradient id="d" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0" stop-color="{top}"/><stop offset="1" stop-color="{bottom}"/></linearGradient>
-<radialGradient id="s" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
-<ellipse cx="54" cy="80" rx="16" ry="3" fill="url(#s)"/>
-<path d="{DROP}" fill="url(#d)"/>
-<path d="M44.5 52c1.2-4.6 3.8-8.6 6.8-12.4" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.9"/>
-<ellipse cx="48.6" cy="58" rx="2.1" ry="2.7" fill="{ink}"/><ellipse cx="59.4" cy="58" rx="2.1" ry="2.7" fill="{ink}"/>
-<circle cx="49.4" cy="57" r="0.8" fill="#fff"/><circle cx="60.2" cy="57" r="0.8" fill="#fff"/>
-<ellipse cx="45.4" cy="63" rx="2.2" ry="1.4" fill="{v['cheek']}" opacity="0.6"/><ellipse cx="62.6" cy="63" rx="2.2" ry="1.4" fill="{v['cheek']}" opacity="0.6"/>
-<path d="M50.2 63.2q3.8 3.8 7.6 0" stroke="{ink}" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-<path d="M75 32l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z" fill="{v['sparkle']}"/>
-<circle cx="33" cy="42" r="1.4" fill="{v['sparkle']}" opacity="0.8"/>
-</svg>'''
+    right = (f'<path d="M58.6 71.4q5-5.4 10 0" stroke="{ink}" stroke-width="2.6" fill="none" stroke-linecap="round"/>' if v['wink']
+             else f'<ellipse cx="63.5" cy="70" rx="4.8" ry="6.2" fill="{ink}"/><circle cx="65.3" cy="67.6" r="2" fill="#fff"/>')
+    return (f'<radialGradient id="dr" cx="0.36" cy="0.4" r="0.8"><stop offset="0" stop-color="{a}"/><stop offset="0.65" stop-color="{b}"/><stop offset="1" stop-color="{edge}"/></radialGradient>'
+            f'<path d="{DROP}" fill="url(#dr)"/>'
+            '<path d="M31 58c2-9 7-17 13-24" stroke="#fff" stroke-width="4.2" stroke-linecap="round" fill="none" opacity="0.9"/>'
+            '<circle cx="30.5" cy="66" r="1.8" fill="#fff" opacity="0.85"/>'
+            f'<ellipse cx="44.5" cy="70" rx="4.8" ry="6.2" fill="{ink}"/><circle cx="46.3" cy="67.6" r="2" fill="#fff"/>{right}'
+            f'<path d="M48.5 81q5.5 5.4 11 0" stroke="{ink}" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+            '<ellipse cx="36" cy="80" rx="4.4" ry="2.6" fill="#ff9fb0" opacity="0.55"/><ellipse cx="72" cy="80" rx="4.4" ry="2.6" fill="#ff9fb0" opacity="0.55"/>')
 
 
-def full(v):
-    bg = background(v).split('\n', 1)[1].rsplit('</svg>', 1)[0]
-    fg = foreground(v).split('\n', 1)[1].rsplit('</svg>', 1)[0]
-    fg = fg.replace('id="d"', 'id="d2"').replace('url(#d)', 'url(#d2)').replace('id="s"', 'id="s2"').replace('url(#s)', 'url(#s2)')
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72">{bg}{fg}</svg>'
+def svg(body, view='0 0 108 108'):
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view}">{body}</svg>'
 
 
-def render(svg, path, size, round_mask=False):
+def scaled_foreground(v):
+    return f'<g transform="translate(54 58) scale(0.72) translate(-54 -58)">{foreground(v)}</g>'
+
+
+def full(v, shape=None):
+    body = background(v) + foreground(v)
+    if shape == 'round':
+        return svg(f'<clipPath id="r"><circle cx="54" cy="54" r="36"/></clipPath><g clip-path="url(#r)">{body}</g>', '18 18 72 72')
+    if shape == 'rounded':
+        return svg(f'<clipPath id="r"><rect x="18" y="18" width="72" height="72" rx="17"/></clipPath><g clip-path="url(#r)">{body}</g>', '18 18 72 72')
+    return svg(body, '18 18 72 72')
+
+
+def render(content, path, size):
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = OUT / '_tmp.svg'
-    content = svg
-    if round_mask:
-        content = svg.replace('viewBox="18 18 72 72">', 'viewBox="18 18 72 72"><clipPath id="r"><circle cx="54" cy="54" r="36"/></clipPath><g clip-path="url(#r)">').replace('</svg>', '</g></svg>')
     tmp.write_text(content)
     subprocess.run(['rsvg-convert', '-w', str(size), '-h', str(size), str(tmp), '-o', str(path)], check=True)
     tmp.unlink()
@@ -68,24 +75,15 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for name, v in VARIANTS.items():
         suffix = '' if name == 'classic' else f'_{name}'
-        (OUT / f'{name}-background.svg').write_text(background(v))
-        (OUT / f'{name}-foreground.svg').write_text(foreground(v))
-        (OUT / f'{name}.svg').write_text(full(v))
+        (OUT / f'{name}.svg').write_text(full(v, 'rounded'))
         for density, scale in DENSITIES.items():
             folder = RES / f'mipmap-{density}'
-            render(full(v), folder / f'ic_launcher{suffix}.png', int(48 * scale))
-            render(full(v), folder / f'ic_launcher{suffix}_round.png', int(48 * scale), round_mask=True)
-            render(foreground(v), folder / f'ic_launcher{suffix}_foreground.png', int(108 * scale))
-            render(background(v), folder / f'ic_launcher{suffix}_background.png', int(108 * scale))
-        for shape in ('', '_round'):
-            (RES / 'mipmap-anydpi-v26' / f'ic_launcher{suffix}{shape}.xml').write_text(
-                '<?xml version="1.0" encoding="utf-8"?>\n'
-                '<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">\n'
-                f'    <background android:drawable="@mipmap/ic_launcher{suffix}_background"/>\n'
-                f'    <foreground android:drawable="@mipmap/ic_launcher{suffix}_foreground"/>\n'
-                '</adaptive-icon>\n'
-            )
-    render(full(VARIANTS['classic']), ROOT / 'public/icon-512.png', 512)
+            render(full(v, 'rounded'), folder / f'ic_launcher{suffix}.png', int(48 * scale))
+            render(full(v, 'round'), folder / f'ic_launcher{suffix}_round.png', int(48 * scale))
+            render(svg(scaled_foreground(v)), folder / f'ic_launcher{suffix}_foreground.png', int(108 * scale))
+            render(svg(background(v)), folder / f'ic_launcher{suffix}_background.png', int(108 * scale))
+        render(full(v, 'rounded'), ROOT / f'public/icons/{name}.png', 192)
+    render(full(VARIANTS['classic'], 'rounded'), ROOT / 'public/icon-512.png', 512)
     print('icons written', file=sys.stderr)
 
 
