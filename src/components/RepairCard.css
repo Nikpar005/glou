@@ -1,0 +1,22 @@
+.repair {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--paper), var(--tip));
+}
+
+.repair-flame {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.repair p {
+  margin: 4px 0 10px;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.repair .button-primary {
+  padding: 10px 14px;
+}

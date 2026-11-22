@@ -10,8 +10,9 @@ function locale(language) {
   return language === 'el' ? 'el-GR' : 'en-GB'
 }
 
-export default function Calendar({ state }) {
+export default function Calendar({ state, repair }) {
   const { settings, days } = state
+  const repairs = state.wardrobe.repairs
   const t = strings(settings.language)
   const today = dayKey()
   const now = parseDayKey(today)
@@ -33,9 +34,9 @@ export default function Calendar({ state }) {
     <section>
       <h1 className="title">{t.calendar}</h1>
       {(() => {
-        const days_ = streak(days, today, settings.goal)
+        const days_ = streak(days, today, settings.goal, repairs)
         const past = keys.filter((key) => key <= today && key >= first)
-        const met = past.filter((key) => goalMet(days, key, settings.goal)).length
+        const met = past.filter((key) => goalMet(days, key, settings.goal) || repairs.includes(key)).length
         return (
           <div className="summary">
             <div className="card summary-card">
@@ -49,6 +50,7 @@ export default function Calendar({ state }) {
           </div>
         )
       })()}
+      {repair}
       <div className="card calendar">
         <header className="calendar-header">
           <button onClick={() => move(-1)} aria-label="‹">‹</button>
@@ -66,7 +68,8 @@ export default function Calendar({ state }) {
           ))}
           {keys.map((key) => {
             const future = key > today
-            const status = future || key < first ? 'future' : goalMet(days, key, settings.goal) ? 'met' : key < today ? 'missed' : 'open'
+            const status =
+              future || key < first ? 'future' : goalMet(days, key, settings.goal) ? 'met' : repairs.includes(key) ? 'saved' : key < today ? 'missed' : 'open'
             return (
               <button
                 key={key}
@@ -86,6 +89,7 @@ export default function Calendar({ state }) {
             {parseDayKey(selected).toLocaleDateString(locale(settings.language), { weekday: 'long', day: 'numeric', month: 'long' })}
           </h2>
           <p className="day-total">{t.dayTotal(formatMl(totalFor(days, selected), settings.language), formatMl(settings.goal, settings.language))}</p>
+          {repairs.includes(selected) && <p className="muted">{t.savedDay}</p>}
           {(days[selected] || []).length === 0 ? (
             <p className="muted">{t.noDrinks}</p>
           ) : (
