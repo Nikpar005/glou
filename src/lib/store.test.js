@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { createStore, DEFAULT_SETTINGS, STORAGE_KEY } from './store.js'
+import { createStore, DEFAULT_SETTINGS, DEFAULT_WARDROBE, STORAGE_KEY } from './store.js'
 
 function memory(initial = {}) {
   const values = { ...initial }
@@ -9,8 +9,29 @@ function memory(initial = {}) {
 describe('store', () => {
   it('starts with the default settings', async () => {
     const state = await createStore(memory()).load()
-    expect(state.settings).toEqual(DEFAULT_SETTINGS)
+    expect(state.settings).toEqual({ ...DEFAULT_SETTINGS, location: null })
     expect(state.days).toEqual({})
+    expect(state.wardrobe).toEqual(DEFAULT_WARDROBE)
+  })
+
+  it('keeps a valid location and wardrobe and drops broken parts', async () => {
+    const backend = memory()
+    await backend.set(
+      'glou.state.v1',
+      JSON.stringify({
+        settings: { location: { lat: 37.98, lon: 23.73 } },
+        wardrobe: { wearing: 'crown', unlocked: ['crown', 4], views: { pirate: 2, chef: -1 } },
+      }),
+    )
+    const state = await createStore(backend).load()
+    expect(state.settings.location).toEqual({ lat: 37.98, lon: 23.73 })
+    expect(state.wardrobe).toEqual({ wearing: 'crown', unlocked: ['crown'], views: { pirate: 2 } })
+  })
+
+  it('ignores a location without coordinates', async () => {
+    const backend = memory()
+    await backend.set('glou.state.v1', JSON.stringify({ settings: { location: { lat: 'x' } } }))
+    expect((await createStore(backend).load()).settings.location).toBeNull()
   })
 
   it('round-trips a saved state', async () => {

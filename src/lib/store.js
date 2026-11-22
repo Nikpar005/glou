@@ -9,10 +9,16 @@ export const DEFAULT_SETTINGS = {
   language: 'el',
   customSize: 330,
   askedPermission: false,
+  weight: 0,
+  activity: 'moderate',
+  goalMode: 'manual',
+  askedProfile: false,
 }
 
+export const DEFAULT_WARDROBE = { wearing: 'auto', unlocked: [], views: {} }
+
 export function emptyState() {
-  return { settings: { ...DEFAULT_SETTINGS }, days: {} }
+  return { settings: { ...DEFAULT_SETTINGS, location: null }, days: {}, wardrobe: { ...DEFAULT_WARDROBE } }
 }
 
 export function normalize(raw) {
@@ -21,6 +27,16 @@ export function normalize(raw) {
   if (raw.settings && typeof raw.settings === 'object') {
     for (const key of Object.keys(DEFAULT_SETTINGS)) {
       if (typeof raw.settings[key] === typeof DEFAULT_SETTINGS[key]) state.settings[key] = raw.settings[key]
+    }
+  }
+  const location = raw.settings?.location
+  if (location && Number.isFinite(location.lat) && Number.isFinite(location.lon)) state.settings.location = { lat: location.lat, lon: location.lon }
+  const wardrobe = raw.wardrobe
+  if (wardrobe && typeof wardrobe === 'object') {
+    if (typeof wardrobe.wearing === 'string') state.wardrobe.wearing = wardrobe.wearing
+    if (Array.isArray(wardrobe.unlocked)) state.wardrobe.unlocked = wardrobe.unlocked.filter((id) => typeof id === 'string')
+    if (wardrobe.views && typeof wardrobe.views === 'object') {
+      state.wardrobe.views = Object.fromEntries(Object.entries(wardrobe.views).filter(([, count]) => Number.isInteger(count) && count > 0))
     }
   }
   if (raw.days && typeof raw.days === 'object') {
