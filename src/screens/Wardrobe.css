@@ -3,7 +3,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
-  background: linear-gradient(160deg, #ffffff 0%, #e6f5fc 100%);
+  background: linear-gradient(160deg, var(--paper) 0%, var(--water-light) 100%);
 }
 
 .stage-text {
@@ -32,7 +32,7 @@
   height: 24px;
   flex: none;
   border-radius: 50%;
-  border: 2px solid #c6dbe7;
+  border: 2px solid var(--line);
 }
 
 .auto-on .check {
@@ -78,7 +78,7 @@
   display: grid;
   justify-items: center;
   gap: 2px;
-  padding: 10px 6px 10px;
+  padding: 8px 6px 10px;
 }
 
 .outfit-pick:disabled {
@@ -90,8 +90,12 @@
 }
 
 .outfit-name {
+  padding: 0 4px;
   font-size: 0.85rem;
   font-weight: 800;
+  text-align: center;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .outfit-tag {
@@ -101,7 +105,7 @@
   padding: 2px 8px;
   border-radius: 999px;
   background: var(--sea);
-  color: #fff;
+  color: var(--paper);
   font-size: 0.68rem;
   font-weight: 800;
 }
@@ -111,7 +115,7 @@
   justify-items: center;
   gap: 4px;
   padding: 8px 4px 10px;
-  background: #f1f8fc;
+  background: var(--chip);
   color: var(--sea);
   font-size: 0.72rem;
   font-weight: 800;
@@ -126,9 +130,110 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #c6dbe7;
+  background: var(--line);
 }
 
 .dot-on {
   background: var(--sea);
+}
+
+.ads-left {
+  font-size: 0.8rem;
+}
+
+.gift {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--paper), var(--tip));
+}
+
+.gift p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.gift .button-primary {
+  flex: none;
+  padding: 10px 14px;
+}
+
+.gift .button-primary:disabled,
+.outfit-unlock:disabled {
+  opacity: 0.45;
+}
+
+.kinds {
+  display: flex;
+  gap: 8px;
+  margin: 4px -20px 10px;
+  padding: 2px 20px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.kinds::-webkit-scrollbar {
+  display: none;
+}
+
+.kind {
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  color: var(--ink-soft);
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+
+.kind-on {
+  background: var(--sea);
+  color: var(--paper);
+}
+
+.outfit-preview {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 96px;
+}
+
+.preview-scene {
+  width: 100%;
+  height: 86px;
+  border-radius: 12px;
+}
+
+.swatches {
+  display: flex;
+}
+
+.swatches span {
+  width: 30px;
+  height: 30px;
+  margin-left: -8px;
+  border-radius: 50%;
+  border: 3px solid var(--paper);
+}
+
+.water-dot {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 5px solid var(--water-light);
+}
+
+.empty-dot {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px dashed var(--line);
+}
+
+.wardrobe .notice {
+  margin-bottom: 14px;
 }
