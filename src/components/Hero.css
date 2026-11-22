@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  height: 196px;
+  height: 212px;
   margin-bottom: 18px;
   border-radius: 26px;
   overflow: hidden;
@@ -20,16 +20,16 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  max-width: 58%;
+  max-width: 66%;
   margin: 0;
   padding: 10px 13px;
   border-radius: 16px 16px 4px 16px;
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(8px);
   color: #12324a;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.32;
   text-align: left;
   box-shadow: 0 6px 18px rgba(18, 50, 74, 0.12);
   animation: bubble-in 0.4s ease-out;
