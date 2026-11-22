@@ -6,8 +6,9 @@ import QuickAdd from '../components/QuickAdd.jsx'
 import TodayLog from '../components/TodayLog.jsx'
 import { dayKey } from '../lib/dates.js'
 import { formatMl, strings } from '../lib/i18n.js'
+import { glouLine } from '../lib/lines.js'
 import { mood } from '../lib/mood.js'
-import { fraction, totalFor } from '../lib/progress.js'
+import { fraction, streak, totalFor } from '../lib/progress.js'
 import { tipIndex } from '../lib/tips.js'
 import './Home.css'
 
@@ -28,7 +29,13 @@ export default function Home({ state, goal, outfit, weather, onAdd, onCustomSize
           <Glou key={lastAdded || 'idle'} mood={face} outfit={outfit} size={84} splash={Boolean(lastAdded)} />
         </button>
       </div>
-      <p className="bubble">{t.moods[face]}</p>
+      <p className="bubble">
+        {glouLine(
+          settings.language,
+          { total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd, weather, streak: streak(days, today, settings.goal) },
+          { left: formatMl(left, settings.language), total: formatMl(total, settings.language), goal: formatMl(goal, settings.language) },
+        )}
+      </p>
       <ProgressRing
         fraction={fraction(total, goal)}
         total={formatMl(total, settings.language)}
