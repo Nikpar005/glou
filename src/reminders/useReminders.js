@@ -12,7 +12,7 @@ export function lastDrink(days) {
   return latest ? new Date(latest) : null
 }
 
-export function useReminders(state) {
+export function useReminders(state, goal) {
   const [wake, setWake] = useState(0)
 
   useEffect(() => {
@@ -28,12 +28,12 @@ export function useReminders(state) {
       const times = planReminders({
         now: new Date(),
         settings,
-        goal: settings.goal,
+        goal: goal ?? settings.goal,
         totalFor: (key) => totalFor(days, key),
         lastDrinkAt: lastDrink(days),
       })
       scheduleReminders(times, strings(settings.language)).catch(() => {})
     }, 800)
     return () => clearTimeout(timer)
-  }, [state, wake])
+  }, [state, goal, wake])
 }

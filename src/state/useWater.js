@@ -46,5 +46,9 @@ export function useWater(store = defaultStore) {
     setState((current) => ({ ...current, settings: { ...current.settings, ...changes } }))
   }, [])
 
-  return { state, addDrink, removeDrink, updateSettings, reload }
+  const updateWardrobe = useCallback((change) => {
+    setState((current) => ({ ...current, wardrobe: change(current.wardrobe) }))
+  }, [])
+
+  return { state, addDrink, removeDrink, updateSettings, updateWardrobe, reload }
 }
