@@ -1,26 +1,24 @@
 .home-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+  gap: 12px;
 }
 
-.bubble {
-  position: relative;
-  margin: -4px 0 20px auto;
-  max-width: 78%;
-  padding: 10px 14px;
-  border-radius: 16px 4px 16px 16px;
-  background: var(--paper);
-  box-shadow: var(--shadow);
+.home-date {
+  color: var(--ink-soft);
   font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: capitalize;
 }
+
 
 .tip {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  background: #fff8e4;
+  background: var(--tip);
 }
 
 .tip p {
@@ -28,10 +26,6 @@
   font-weight: 700;
 }
 
-.home-glou {
-  padding: 0;
-  margin: -6px -6px -10px 0;
-}
 
 .hot-note {
   margin: -6px 0 14px;

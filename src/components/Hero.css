@@ -1,0 +1,77 @@
+.hero {
+  position: relative;
+  height: 196px;
+  margin-bottom: 18px;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hero-bubble {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  max-width: 58%;
+  margin: 0;
+  padding: 10px 13px;
+  border-radius: 16px 16px 4px 16px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+  color: #12324a;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+  box-shadow: 0 6px 18px rgba(18, 50, 74, 0.12);
+  animation: bubble-in 0.4s ease-out;
+}
+
+.hero-ground {
+  position: absolute;
+  left: 10px;
+  bottom: 4px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.hero-glou {
+  padding: 0;
+  margin-bottom: -6px;
+}
+
+.hero-goldfish .companion,
+.hero-ground .companion-goldfish,
+.hero-ground .companion-cloud {
+  align-self: center;
+  margin-bottom: 40px;
+}
+
+.hero-wardrobe {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  color: #12324a;
+  backdrop-filter: blur(6px);
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}

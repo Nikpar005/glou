@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CustomAmount from '../components/CustomAmount.jsx'
 import Glou from '../components/Glou.jsx'
+import Hero from '../components/Hero.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import QuickAdd from '../components/QuickAdd.jsx'
 import TodayLog from '../components/TodayLog.jsx'
@@ -12,7 +13,7 @@ import { fraction, streak, totalFor } from '../lib/progress.js'
 import { tipIndex } from '../lib/tips.js'
 import './Home.css'
 
-export default function Home({ state, goal, outfit, weather, onAdd, onCustomSize, onRemove, lastAdded, onOpenWardrobe }) {
+export default function Home({ state, goal, outfit, look, weather, repair, onAdd, onCustomSize, onRemove, lastAdded, onOpenWardrobe }) {
   const [custom, setCustom] = useState(false)
   const { settings, days } = state
   const t = strings(settings.language)
@@ -23,24 +24,32 @@ export default function Home({ state, goal, outfit, weather, onAdd, onCustomSize
   const face = mood({ total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd })
   return (
     <section>
-      <div className="home-header">
+      <header className="home-header">
         <h1 className="title">{t.today}</h1>
-        <button className="home-glou" onClick={onOpenWardrobe} aria-label={t.wardrobeTitle}>
-          <Glou key={lastAdded || 'idle'} mood={face} outfit={outfit} size={84} splash={Boolean(lastAdded)} />
-        </button>
-      </div>
-      <p className="bubble">
-        {glouLine(
+        <span className="home-date">{new Date().toLocaleDateString(settings.language === 'el' ? 'el-GR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+      </header>
+      <Hero
+        scene={look.scene}
+        outfit={outfit}
+        mood={face}
+        companion={look.companion}
+        dance={look.dance}
+        splashKey={lastAdded}
+        label={t.wardrobeTitle}
+        onOpen={onOpenWardrobe}
+        line={glouLine(
           settings.language,
-          { total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd, weather, streak: streak(days, today, settings.goal) },
+          { total, goal, now: new Date(), wakeStart: settings.wakeStart, wakeEnd: settings.wakeEnd, weather, streak: streak(days, today, settings.goal, state.wardrobe.repairs) },
           { left: formatMl(left, settings.language), total: formatMl(total, settings.language), goal: formatMl(goal, settings.language) },
         )}
-      </p>
+      />
+      {repair}
       <ProgressRing
         fraction={fraction(total, goal)}
         total={formatMl(total, settings.language)}
         goalText={t.ofGoal(formatMl(goal, settings.language))}
         leftText={left ? t.left(formatMl(left, settings.language)) : t.goalReached}
+        waterStyle={look.water}
       />
       {extra > 0 && weather && <p className="hot-note">{t.hotDay(formatMl(extra, settings.language))}</p>}
       <QuickAdd
