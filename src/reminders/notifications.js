@@ -26,11 +26,13 @@ async function clearLegacy() {
 }
 
 export function reminderItems(times, t) {
+  const bodies = t.reminderBodies
+  const offset = times.length ? Math.floor(times[0].getTime() / 86400000) * 7 : 0
   return times.slice(0, MAX_PENDING).map((at, index) => ({
     id: index + 1,
     at: at.getTime(),
     title: t.notificationTitle,
-    body: t.reminderBodies[index % t.reminderBodies.length],
+    body: bodies[(offset + index) % bodies.length],
   }))
 }
 
