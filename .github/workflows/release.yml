@@ -54,3 +54,13 @@ jobs:
             glou.apk
             glou-${{ github.ref_name }}.apk
           generate_release_notes: true
+      - name: Publish on the public download page
+        uses: softprops/action-gh-release@v2
+        with:
+          repository: Nikpar005/glou-app
+          token: ${{ secrets.GLOU_APP_TOKEN }}
+          name: Glou ${{ github.ref_name }}
+          body: Κατέβασε το glou.apk από το κινητό σου, άνοιξέ το και πάτα Εγκατάσταση.
+          files: |
+            glou.apk
+            glou-${{ github.ref_name }}.apk
