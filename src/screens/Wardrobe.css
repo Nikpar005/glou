@@ -1,0 +1,134 @@
+.stage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  background: linear-gradient(160deg, #ffffff 0%, #e6f5fc 100%);
+}
+
+.stage-text {
+  display: grid;
+  gap: 2px;
+  font-size: 1.15rem;
+}
+
+.auto {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.auto > span:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.check {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid #c6dbe7;
+}
+
+.auto-on .check {
+  border-color: var(--sea);
+  background: radial-gradient(circle, var(--sea) 0 6px, transparent 7px);
+}
+
+.section-title {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+}
+
+.section-text {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+
+.outfits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.outfit {
+  position: relative;
+  display: grid;
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  outline: 2px solid transparent;
+  transition: outline-color 0.2s;
+}
+
+.outfit-on {
+  outline-color: var(--sea);
+}
+
+.outfit-pick {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 6px 10px;
+}
+
+.outfit-pick:disabled {
+  cursor: default;
+}
+
+.outfit-locked .outfit-pick svg {
+  filter: grayscale(0.85) opacity(0.55);
+}
+
+.outfit-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.outfit-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--sea);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.outfit-unlock {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 4px 10px;
+  background: #f1f8fc;
+  color: var(--sea);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c6dbe7;
+}
+
+.dot-on {
+  background: var(--sea);
+}
